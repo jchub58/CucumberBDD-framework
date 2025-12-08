@@ -11,10 +11,11 @@ import static org.junit.Assert.*;
 
 public class LoginSteps {
     WebDriver driver;
-
+    public LoginSteps(){
+        this.driver = Hooks.getDriver();
+    }
     @Given("I am on the SauceDemo login page")
     public void iAmOnTheSauceDemoLoginPage() {
-        driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com");
     }
 
@@ -38,7 +39,7 @@ public class LoginSteps {
         assertTrue(driver.getCurrentUrl().contains("inventory"));
     }
 
-@And("I should see {string} as the page title")
+    @And("I should see {string} as the page title")
     public void iShouldSeeAsThePageTitle(String title) {
         String actualTitle = driver.findElement(By.className("title")).getText();
         assertEquals(title, actualTitle);
@@ -56,6 +57,4 @@ public class LoginSteps {
         assertTrue(error.contains(errorText));
         driver.quit();
     }
-}
-
 }
