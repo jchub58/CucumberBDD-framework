@@ -1,37 +1,39 @@
 package com.saucedemo.stepdefinitions;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.And;
+import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import com.saucedemo.pages.LoginPage;
+import com.saucedemo.utils.ConfigReader;
 import static org.junit.Assert.*;
 
 public class LoginSteps {
-    WebDriver driver;
-    public LoginSteps(){
+    private WebDriver driver;
+    private LoginPage loginPage;
+
+    public LoginSteps() {
         this.driver = Hooks.getDriver();
+        this.loginPage = new LoginPage(driver);
     }
+
     @Given("I am on the SauceDemo login page")
     public void iAmOnTheSauceDemoLoginPage() {
-        driver.get("https://www.saucedemo.com");
+        driver.get(ConfigReader.get("base.url"));
     }
 
     @When("I enter username {string}")
     public void iEnterUsername(String username) {
-        driver.findElement(By.id("user-name")).sendKeys(username);
+        loginPage.enterUsername(username);
     }
 
     @And("I enter password {string}")
     public void iEnterPassword(String password) {
-        driver.findElement(By.id("password")).sendKeys(password);
+        loginPage.enterPassword(password);
     }
 
     @And("I click the login button")
     public void iClickTheLoginButton() {
-        driver.findElement(By.id("login-button")).click();
+        loginPage.clickLogin();
     }
 
     @Then("I should be redirected to the products page")
@@ -43,18 +45,15 @@ public class LoginSteps {
     public void iShouldSeeAsThePageTitle(String title) {
         String actualTitle = driver.findElement(By.className("title")).getText();
         assertEquals(title, actualTitle);
-        driver.quit();
     }
-    
+
     @Then("I should see an error message")
     public void iShouldSeeAnErrorMessage() {
-        assertTrue(driver.findElement(By.cssSelector("[data-test='error']")).isDisplayed());
+        assertTrue(loginPage.isErrorDisplayed());
     }
-    
+
     @And("the error should contain {string}")
     public void theErrorShouldContain(String errorText) {
-        String error = driver.findElement(By.cssSelector("[data-test='error']")).getText();
-        assertTrue(error.contains(errorText));
-        driver.quit();
+        assertTrue(loginPage.getErrorMessage().contains(errorText));
     }
 }
