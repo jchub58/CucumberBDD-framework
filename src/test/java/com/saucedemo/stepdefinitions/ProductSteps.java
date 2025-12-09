@@ -1,5 +1,6 @@
 package com.saucedemo.stepdefinitions;
 
+import com.saucedemo.factory.DriverFactory;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import com.saucedemo.pages.LoginPage;
@@ -15,7 +16,7 @@ public class ProductSteps {
     private LoginPage loginPage;
 
     public ProductSteps() {
-        this.driver = Hooks.getDriver();
+        this.driver = DriverFactory.getDriver();
         this.productsPage = new ProductsPage(driver);
         this.cartPage = new CartPage(driver);
         this.loginPage = new LoginPage(driver);
