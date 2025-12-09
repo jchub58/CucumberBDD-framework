@@ -1,5 +1,6 @@
 package com.saucedemo.stepdefinitions;
 
+import com.saucedemo.factory.DriverFactory;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +13,7 @@ public class LoginSteps {
     private LoginPage loginPage;
 
     public LoginSteps() {
-        this.driver = Hooks.getDriver();
+        this.driver = DriverFactory.getDriver();
         this.loginPage = new LoginPage(driver);
     }
 
