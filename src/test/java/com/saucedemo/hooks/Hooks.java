@@ -1,4 +1,4 @@
-package com.saucedemo.stepdefinitions;
+package com.saucedemo.hooks;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
