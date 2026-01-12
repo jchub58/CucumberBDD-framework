@@ -73,13 +73,24 @@ public class ProductSteps {
 
     @When("I sort products by {string}")
     public void iSortProductsBy(String sortOption) {
-        String value = switch (sortOption) {
-            case "Price (low to high)" -> "lohi";
-            case "Price (high to low)" -> "hilo";
-            case "Name (A to Z)" -> "az";
-            case "Name (Z to A)" -> "za";
-            default -> "az";
-        };
+        String value;
+        switch (sortOption) {
+            case "Price (low to high)":
+                value = "lohi";
+                break;
+            case "Price (high to low)":
+                value = "hilo";
+                break;
+            case "Name (A to Z)":
+                value = "az";
+                break;
+            case "Name (Z to A)":
+                value = "za";
+                break;
+            default:
+                value = "az";
+                break;
+        }
         productsPage.sortBy(value);
     }
 

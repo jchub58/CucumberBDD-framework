@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CartPage {
     private WebDriver driver;
@@ -25,8 +26,8 @@ public class CartPage {
 
     public List<String> getCartItemNames() {
         return driver.findElements(itemNames).stream()
-                .map(WebElement::getText)
-                .toList();
+            .map(WebElement::getText)
+            .collect(Collectors.toList());
     }
 
     public void removeItem(String itemName) {
